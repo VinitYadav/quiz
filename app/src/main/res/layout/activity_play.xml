@@ -5,15 +5,14 @@
 
         <variable
             name="activity"
-            type="com.sriharilabs.harisharan.quiz.activity.PlayActivity"/>
+            type="com.sriharilabs.harisharan.quiz.activity.PlayActivity" />
     </data>
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg"
         tools:context="com.sriharilabs.harisharan.quiz.activity.PlayActivity">
 
         <LinearLayout
@@ -25,19 +24,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="16dp"
                 android:gravity="center"
                 android:text="Logo"
                 android:textColor="@color/white"
                 android:textSize="30dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <LinearLayout
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -45,7 +44,7 @@
                     android:layout_marginStart="45dp"
                     android:text="POINTS"
                     android:textColor="@color/white"
-                    android:textSize="10dp"/>
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -53,78 +52,95 @@
                     android:layout_marginStart="12dp"
                     android:text="LIFE"
                     android:textColor="@color/white"
-                    android:textSize="10dp"/>
+                    android:textSize="10dp" />
             </LinearLayout>
 
             <LinearLayout
-
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:orientation="horizontal">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="75dp"
-                        android:background="@drawable/round_rect"
-                        android:paddingBottom="12dp"
-                        android:paddingEnd="20dp"
-                        android:paddingStart="30dp"
-                        android:paddingTop="12dp"
-                        android:text="0"
-                        android:textColor="@color/green"
-                        android:textSize="14dp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/textViewPoints"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="0dp"
-                        android:background="@drawable/round_rect"
-                        android:paddingBottom="12dp"
-                        android:paddingEnd="20dp"
-                        android:paddingStart="20dp"
-                        android:paddingTop="12dp"
-                        android:text="0"
-                        android:textColor="@color/green"
-                        android:textSize="14dp"
-                        android:textStyle="bold"/>
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/circle">
+                        android:layout_height="wrap_content">
 
-                        <ImageView
+                        <TextView
+                            android:id="@+id/textViewLife"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="75dp"
+                            android:background="@drawable/round_rect"
+                            android:paddingBottom="12dp"
+                            android:paddingEnd="20dp"
+                            android:paddingStart="30dp"
+                            android:paddingTop="12dp"
+                            android:text="0"
+                            android:textColor="@color/green"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewPoints"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:padding="10dp"
-                            android:src="@drawable/person_icon"/>
+                            android:layout_marginStart="0dp"
+                            android:background="@drawable/round_rect"
+                            android:paddingBottom="12dp"
+                            android:paddingEnd="20dp"
+                            android:paddingStart="20dp"
+                            android:paddingTop="12dp"
+                            android:text="0"
+                            android:textColor="@color/green"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/circle">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:src="@drawable/person_icon" />
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
+                </LinearLayout>
 
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/textViewTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center|end"
+                    android:text="Time : 30"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/green"
+                android:background="@drawable/question_box"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -132,8 +148,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="20dp"
-                    android:src="@mipmap/ic_launcher_round"/>
+                    android:padding="30dp"
+                    android:src="@mipmap/ic_launcher_round" />
             </LinearLayout>
 
             <android.support.v7.widget.CardView
@@ -142,7 +158,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                app:cardBackgroundColor="@color/red"
+                android:visibility="gone"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true">
@@ -150,19 +166,327 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         android:text="GUESS THE LOGO?"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="12dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="A"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="12dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="B"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="12dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="C"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="12dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="D"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="0dp"
+                        android:text="GUESS THE LOGO?"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect"
+                            android:onClick='@{()->activity.onClickAnswer(1)}'>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="20dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer"
+                                android:textColor="@color/red"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="A"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect"
+                            android:onClick='@{()->activity.onClickAnswer(2)}'>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="20dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer"
+                                android:textColor="@color/red" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="B"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect"
+                            android:onClick='@{()->activity.onClickAnswer(3)}'>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="20dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer"
+                                android:textColor="@color/red" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="C"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/answer_round_rect"
+                            android:onClick='@{()->activity.onClickAnswer(4)}'>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="30dp"
+                                android:paddingEnd="20dp"
+                                android:paddingStart="8dp"
+                                android:text="Answer"
+                                android:textColor="@color/red" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/yellow_circle"
+                                android:gravity="center"
+                                android:text="D"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 </layout>

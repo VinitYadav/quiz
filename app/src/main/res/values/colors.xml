@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
-    <color name="red">#e62733</color>
+    <color name="red">#ff0010</color>
     <color name="green">#418635</color>
     <color name="pink">#d62451</color>
 </resources>

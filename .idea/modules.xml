@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\vinit\project\quiz\app\app.iml" filepath="E:\vinit\project\quiz\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/quiz.iml" filepath="$PROJECT_DIR$/quiz.iml" />
+      <module fileurl="file://E:\vinit\project\quiz\quiz.iml" filepath="E:\vinit\project\quiz\quiz.iml" />
     </modules>
   </component>
 </project>
