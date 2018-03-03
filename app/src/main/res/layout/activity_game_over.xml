@@ -5,7 +5,7 @@
 
         <variable
             name="activity"
-            type="com.sriharilabs.harisharan.quiz.activity.HomeActivity"/>
+            type="com.sriharilabs.harisharan.quiz.activity.GameOverActivity"/>
     </data>
 
     <RelativeLayout
@@ -27,9 +27,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/high_score"
+                android:text="@string/game_over"
                 android:textColor="@color/white"
                 android:textSize="40dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="@string/your_score"
+                android:textColor="@color/white"
+                android:textSize="30dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -38,9 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:text=""
+                android:text="0"
                 android:textColor="@color/white"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textStyle="bold"/>
 
             <ImageView
@@ -49,14 +59,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/coins_icon"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:onClick="@{()->activity.onClickStart()}"
-                android:src="@drawable/start_icon"/>
         </LinearLayout>
 
     </RelativeLayout>
