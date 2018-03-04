@@ -16,5 +16,16 @@ public class GameOverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_game_over);
         mBinding.setActivity(this);
+        getDataFromBundle();
+    }
+
+    /**
+     * Get data from bundle
+     */
+    private void getDataFromBundle(){
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            mBinding.textViewScore.setText(bundle.getString("point"));
+        }
     }
 }
