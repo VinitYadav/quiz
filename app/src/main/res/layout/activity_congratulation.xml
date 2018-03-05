@@ -5,12 +5,11 @@
 
         <variable
             name="activity"
-            type="com.sriharilabs.harisharan.quiz.activity.GameOverActivity"/>
+            type="com.sriharilabs.harisharan.quiz.activity.CongratulationActivity"/>
     </data>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg">
@@ -25,9 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/game_over"
+                android:text="@string/congratulation"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -37,7 +36,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/your_score"
                 android:textColor="@color/white"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -48,7 +47,7 @@
                 android:layout_margin="10dp"
                 android:text="0"
                 android:textColor="@color/white"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <ImageView

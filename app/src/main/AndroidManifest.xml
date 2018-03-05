@@ -23,6 +23,9 @@
         <activity
             android:name=".activity.PlayActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.CongratulationActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -2,9 +2,11 @@ package com.sriharilabs.harisharan.quiz.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.sriharilabs.harisharan.quiz.R;
@@ -12,7 +14,7 @@ import com.sriharilabs.harisharan.quiz.database.DatabaseHandler;
 import com.sriharilabs.harisharan.quiz.database.QuestionBean;
 import com.sriharilabs.harisharan.quiz.databinding.ActivityPlayBinding;
 import com.sriharilabs.harisharan.quiz.utill.Constant;
-import com.sriharilabs.harisharan.quiz.utill.Utility;
+import com.sriharilabs.harisharan.quiz.utill.PreferenceConnector;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +28,7 @@ public class PlayActivity extends AppCompatActivity {
     private ArrayList<QuestionBean> questionList = new ArrayList<>();
     private int questionNumber = 0;
     private int answerPosition = 0;
+    private String RIGHT_ANSWER = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +39,29 @@ public class PlayActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
+        countDownTimer = null;
+    }
+
     /**
      * Click on answer
      */
     public void onClickAnswer(int which) {
         switch (which) {
             case 1: // A
+                rightAnswer(mBinding.textViewAnswerA.getText().toString().trim(), 1);
                 break;
             case 2: // B
+                rightAnswer(mBinding.textViewAnswerB.getText().toString().trim(), 2);
                 break;
             case 3: // C
+                rightAnswer(mBinding.textViewAnswerC.getText().toString().trim(), 3);
                 break;
             case 4: // D
+                rightAnswer(mBinding.textViewAnswerD.getText().toString().trim(), 4);
                 break;
         }
     }
@@ -71,8 +85,8 @@ public class PlayActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                //checkGameOver();
                 countDownTimer.cancel();
+                checkGameOver();
                 mBinding.textViewTime.setText("Time: " + "0");
             }
 
@@ -106,8 +120,8 @@ public class PlayActivity extends AppCompatActivity {
             countDownTimer.cancel();
             openGameOverScreen();
         } else {
+            openCongratulationScreen();
             makeQuestion();
-            countDownTimer.start();
         }
     }
 
@@ -115,10 +129,21 @@ public class PlayActivity extends AppCompatActivity {
      * Open game over screen
      */
     private void openGameOverScreen() {
-        Intent intent = new Intent(PlayActivity.this, GameOverActivity.class);
-        intent.putExtra("point", POINT + "");
-        startActivity(intent);
-        finish();
+        if (!isDestroyed()) {
+            String pointTemp = PreferenceConnector.readString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, "");
+            if (TextUtils.isEmpty(pointTemp)) {
+                PreferenceConnector.writeString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, POINT + "");
+            } else {
+                int temp = Integer.parseInt(pointTemp);
+                if (POINT > temp) {
+                    PreferenceConnector.writeString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, POINT + "");
+                }
+            }
+            Intent intent = new Intent(PlayActivity.this, GameOverActivity.class);
+            intent.putExtra("point", POINT + "");
+            startActivity(intent);
+            finish();
+        }
     }
 
     /**
@@ -136,23 +161,37 @@ public class PlayActivity extends AppCompatActivity {
      * Make question
      */
     private void makeQuestion() {
-        String type = questionList.get(questionNumber).getType();
-        if (!TextUtils.isEmpty(type)) { // Check type
-            switch (type) {
-                case Constant.TYPE_LOGO:
-                    setQuestion(getString(R.string.logo_question));
-                    break;
-                case Constant.TYPE_MALE:
-                    setQuestion(getString(R.string.logo_actor));
-                    break;
-                case Constant.TYPE_FEMALE:
-                    setQuestion(getString(R.string.logo_actress));
-                    break;
+        openCongratulationScreen();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isDestroyed()) {
+                    return;
+                }
+                countDownTimer.cancel();
+                countDownTimer.start();
+                resetAnswer();
+                String type = questionList.get(questionNumber).getType();
+                if (!TextUtils.isEmpty(type)) { // Check type
+                    switch (type) {
+                        case Constant.TYPE_LOGO:
+                            setQuestion(getString(R.string.logo_question));
+                            break;
+                        case Constant.TYPE_MALE:
+                            setQuestion(getString(R.string.logo_actor));
+                            break;
+                        case Constant.TYPE_FEMALE:
+                            setQuestion(getString(R.string.logo_actress));
+                            break;
+                    }
+                }
+                setAnswer();
+                setImage();
+                if (questionNumber < (questionList.size() - 1)) {
+                    questionNumber++;
+                }
             }
-        }
-        setAnswer();
-        setImage();
-        questionNumber++;
+        }, 500);
     }
 
     /**
@@ -167,7 +206,7 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void setAnswer() {
         String answer = questionList.get(questionNumber).getAnswer();
-
+        RIGHT_ANSWER = answer;
         answerPosition = getAnswerPosition();
         switch (answerPosition) { // Set correct answer
             case 1: // A
@@ -295,6 +334,124 @@ public class PlayActivity extends AppCompatActivity {
                 case "disha_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.disha_icon);
                     break;
+            }
+        }
+    }
+
+    /**
+     * Check right answer
+     */
+    private void rightAnswer(String answer, int which) {
+        if (!TextUtils.isEmpty(answer)) {
+            if (answer.equalsIgnoreCase(RIGHT_ANSWER)) {
+                setRightAnswerBackground(which);
+                POINT++;
+                setPoint();
+                makeQuestion();
+            } else {
+                setWrongAnswerBackground();
+                checkGameOver();
+            }
+        }
+    }
+
+    /**
+     * Set wrong answer background
+     */
+    private void setWrongAnswerBackground() {
+        switch (answerPosition) {
+            case 1: // A
+                mBinding.relativeLayoutA.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.relativeLayoutB.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutC.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutD.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                break;
+            case 2: // B
+                mBinding.relativeLayoutA.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutB.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.relativeLayoutC.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutD.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                break;
+            case 3: // C
+                mBinding.relativeLayoutA.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutB.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutC.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.relativeLayoutD.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                break;
+            case 4: // D
+                mBinding.relativeLayoutA.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutB.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutC.setBackgroundResource(R.drawable.answer_round_rect_orange);
+                mBinding.relativeLayoutD.setBackgroundResource(R.drawable.answer_round_rect_green);
+                break;
+        }
+        mBinding.textViewAnswerA.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+        mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+        mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+        mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+    }
+
+    /**
+     * Set wrong answer background
+     */
+    private void setRightAnswerBackground(int which) {
+        switch (which) {
+            case 1: // A
+                mBinding.relativeLayoutA.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.textViewAnswerA.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+                mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                break;
+            case 2: // B
+                mBinding.relativeLayoutB.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.textViewAnswerA.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+                mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                break;
+            case 3: // C
+                mBinding.relativeLayoutC.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.textViewAnswerA.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+                mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                break;
+            case 4: // D
+                mBinding.relativeLayoutD.setBackgroundResource(R.drawable.answer_round_rect_green);
+                mBinding.textViewAnswerA.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+                mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+                break;
+        }
+    }
+
+    /**
+     * Reset answer background
+     */
+    private void resetAnswer() {
+        mBinding.relativeLayoutA.setBackgroundResource(R.drawable.answer_round_rect);
+        mBinding.relativeLayoutB.setBackgroundResource(R.drawable.answer_round_rect);
+        mBinding.relativeLayoutC.setBackgroundResource(R.drawable.answer_round_rect);
+        mBinding.relativeLayoutD.setBackgroundResource(R.drawable.answer_round_rect);
+        mBinding.textViewAnswerA.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+        mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+        mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+        mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.red));
+    }
+
+    /**
+     * Open congratulation screen
+     */
+    private void openCongratulationScreen() {
+        if (!isDestroyed()) {
+            int size = questionList.size() - 1;
+            if (questionNumber >= size) {
+                Intent intent = new Intent(PlayActivity.this, CongratulationActivity.class);
+                intent.putExtra("point", POINT + "");
+                startActivity(intent);
+                finish();
             }
         }
     }

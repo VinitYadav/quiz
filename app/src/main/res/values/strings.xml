@@ -1,18 +1,11 @@
 <resources>
     <string name="app_name">Quiz</string>
 
-    <!-- Home Activity-->
     <string name="high_score">HIGH SCORE</string>
-    <!-- Home Activity-->
-
-    <!-- Game Over Activity-->
     <string name="game_over">GAME OVER</string>
     <string name="your_score">YOUR SCORE</string>
-    <!-- Game Over Activity-->
-
-    <!-- Play Activity-->
     <string name="logo_question">GUESS THE LOGO?</string>
     <string name="logo_actor">GUESS THE ACTOR?</string>
     <string name="logo_actress">GUESS THE ACTRESS?</string>
-    <!-- Play Activity-->
+    <string name="congratulation">CONGRATULATION</string>
 </resources>
