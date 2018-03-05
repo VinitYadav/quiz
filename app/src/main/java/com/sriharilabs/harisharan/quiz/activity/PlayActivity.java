@@ -187,7 +187,7 @@ public class PlayActivity extends AppCompatActivity {
                 }
                 setAnswer();
                 setImage();
-                if (questionNumber < (questionList.size() - 1)) {
+                if (questionNumber <= (questionList.size() - 1)) {
                     questionNumber++;
                 }
             }
@@ -446,7 +446,7 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void openCongratulationScreen() {
         if (!isDestroyed()) {
-            int size = questionList.size() - 1;
+            int size = questionList.size();
             if (questionNumber >= size) {
                 Intent intent = new Intent(PlayActivity.this, CongratulationActivity.class);
                 intent.putExtra("point", POINT + "");
