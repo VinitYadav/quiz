@@ -97,6 +97,14 @@ public class HomeActivity extends AppCompatActivity {
                 "akki_icon", Constant.TYPE_MALE));
         db.addContact(new QuestionBean(14, "Disha Patani",
                 "disha_icon", Constant.TYPE_FEMALE));
+        db.addContact(new QuestionBean(15, "Tom Cruise",
+                "tom_cruise_icon", Constant.TYPE_MALE));
+        db.addContact(new QuestionBean(16, "Johnny Depp",
+                "johnny_depp_icon", Constant.TYPE_MALE));
+        db.addContact(new QuestionBean(17, "Kristen Stewart",
+                "kristen_stewart_icon", Constant.TYPE_FEMALE));
+        db.addContact(new QuestionBean(18, "Angelina Jolie",
+                "angelina_jolie_icon", Constant.TYPE_FEMALE));
         /*List<QuestionBean> questionList = db.getAllContacts();
         if (questionList.size()>0){
             Utility.showToast(HomeActivity.this,"Question added");

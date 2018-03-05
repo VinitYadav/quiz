@@ -29,6 +29,7 @@ public class PlayActivity extends AppCompatActivity {
     private int questionNumber = 0;
     private int answerPosition = 0;
     private String RIGHT_ANSWER = "";
+    private final int TOTAL_QUESTION = 18;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,15 +131,7 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void openGameOverScreen() {
         if (!isDestroyed()) {
-            String pointTemp = PreferenceConnector.readString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, "");
-            if (TextUtils.isEmpty(pointTemp)) {
-                PreferenceConnector.writeString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, POINT + "");
-            } else {
-                int temp = Integer.parseInt(pointTemp);
-                if (POINT > temp) {
-                    PreferenceConnector.writeString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, POINT + "");
-                }
-            }
+            saveHighScore();
             Intent intent = new Intent(PlayActivity.this, GameOverActivity.class);
             intent.putExtra("point", POINT + "");
             startActivity(intent);
@@ -241,10 +234,11 @@ public class PlayActivity extends AppCompatActivity {
      */
     private ArrayList<String> getOtherAnswer() {
         String answer = questionList.get(questionNumber).getAnswer();
+        String selectType = questionList.get(questionNumber).getType();
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < questionList.size(); i++) {
             String type = questionList.get(i).getType();
-            if (type.equalsIgnoreCase(Constant.TYPE_LOGO) &&
+            if (type.equalsIgnoreCase(selectType) &&
                     !answer.equalsIgnoreCase(questionList.get(i).getAnswer())) {
                 list.add(questionList.get(i).getAnswer());
                 if (list.size() >= 3) {
@@ -333,6 +327,18 @@ public class PlayActivity extends AppCompatActivity {
                     break;
                 case "disha_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.disha_icon);
+                    break;
+                case "tom_cruise_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tom_cruise_icon);
+                    break;
+                case "johnny_depp_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.johnny_depp_icon);
+                    break;
+                case "kristen_stewart_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kristen_stewart_icon);
+                    break;
+                case "angelina_jolie_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.angelina_jolie_icon);
                     break;
             }
         }
@@ -446,12 +452,28 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void openCongratulationScreen() {
         if (!isDestroyed()) {
-            int size = questionList.size();
-            if (questionNumber >= size) {
+            //int size = questionList.size();
+            if (questionNumber >= TOTAL_QUESTION) {
+                saveHighScore();
                 Intent intent = new Intent(PlayActivity.this, CongratulationActivity.class);
                 intent.putExtra("point", POINT + "");
                 startActivity(intent);
                 finish();
+            }
+        }
+    }
+
+    /**
+     * Set high score in local db
+     */
+    private void saveHighScore() {
+        String pointTemp = PreferenceConnector.readString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, "");
+        if (TextUtils.isEmpty(pointTemp)) {
+            PreferenceConnector.writeString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, POINT + "");
+        } else {
+            int temp = Integer.parseInt(pointTemp);
+            if (POINT > temp) {
+                PreferenceConnector.writeString(PlayActivity.this, PreferenceConnector.HIGH_SCORE, POINT + "");
             }
         }
     }
