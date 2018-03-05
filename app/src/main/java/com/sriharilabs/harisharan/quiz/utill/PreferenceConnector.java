@@ -10,6 +10,7 @@ public class PreferenceConnector {
     public static final int MODE = Context.MODE_PRIVATE;
 
     public static final String HIGH_SCORE = "high_score";
+    public static final String IS_DB = "is_db";
 
     public static void writeBoolean(Context context, String key, boolean value) {
         getEditor(context).putBoolean(key, value).commit();

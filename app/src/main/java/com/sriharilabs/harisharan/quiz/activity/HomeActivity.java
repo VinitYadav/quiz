@@ -16,6 +16,8 @@ import com.sriharilabs.harisharan.quiz.utill.Utility;
 
 import java.util.List;
 
+import static com.sriharilabs.harisharan.quiz.utill.PreferenceConnector.readString;
+
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding mBinding;
@@ -38,13 +40,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void init() {
-        String score = PreferenceConnector.readString(HomeActivity.this, PreferenceConnector.HIGH_SCORE, "");
+        String score = readString(HomeActivity.this, PreferenceConnector.HIGH_SCORE, "");
         if (TextUtils.isEmpty(score) || score.equalsIgnoreCase("0")) {
             mBinding.textViewScore.setText("0");
         } else {
             mBinding.textViewScore.setText(score);
         }
-        //initDatabase();
+        String isDb = PreferenceConnector.readString(HomeActivity.this,PreferenceConnector.IS_DB,"");
+        if (TextUtils.isEmpty(isDb)){
+            initDatabase();
+        }
+
     }
 
     /**
@@ -84,5 +90,6 @@ public class HomeActivity extends AppCompatActivity {
         if (questionList.size()>0){
             Utility.showToast(HomeActivity.this,"Question added");
         }*/
+        PreferenceConnector.writeString(HomeActivity.this,PreferenceConnector.IS_DB,"true");
     }
 }
