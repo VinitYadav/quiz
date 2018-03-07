@@ -1,10 +1,15 @@
 package com.sriharilabs.harisharan.quiz.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.sriharilabs.harisharan.quiz.R;
 import com.sriharilabs.harisharan.quiz.database.DatabaseHandler;
@@ -50,6 +55,20 @@ public class HomeActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(isDb)) {
             initDatabase();
         }
+
+        mBinding.imageViewStart.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mBinding.imageViewStart.setImageResource(R.drawable.start_on_icon);
+                    Intent intent = new Intent(HomeActivity.this, PlayActivity.class);
+                    startActivity(intent);
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    mBinding.imageViewStart.setImageResource(R.drawable.start_off_icon);
+                }
+                return true;
+            }
+        });
     }
 
     /**

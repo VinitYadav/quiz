@@ -51,12 +51,12 @@
                 android:src="@drawable/coins_icon"/>
 
             <ImageView
+                android:id="@+id/imageViewStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
-                android:onClick="@{()->activity.onClickStart()}"
-                android:src="@drawable/start_icon"/>
+                android:src="@drawable/start_on_icon"/>
         </LinearLayout>
 
     </RelativeLayout>
