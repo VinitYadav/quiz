@@ -10,11 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.sriharilabs.harisharan.quiz.R;
-import com.sriharilabs.harisharan.quiz.database.DatabaseHandler;
 import com.sriharilabs.harisharan.quiz.database.QuestionBean;
+import com.sriharilabs.harisharan.quiz.database.SqlLiteDbHelper;
 import com.sriharilabs.harisharan.quiz.databinding.ActivityPlayBinding;
 import com.sriharilabs.harisharan.quiz.utill.Constant;
 import com.sriharilabs.harisharan.quiz.utill.PreferenceConnector;
+import com.sriharilabs.harisharan.quiz.utill.Utility;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +30,8 @@ public class PlayActivity extends AppCompatActivity {
     private int questionNumber = 0;
     private int answerPosition = 0;
     private String RIGHT_ANSWER = "";
-    private final int TOTAL_QUESTION = 18;
+    private final int TOTAL_QUESTION = 236;
+    private boolean wrongAnswerFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public class PlayActivity extends AppCompatActivity {
      * Click on answer
      */
     public void onClickAnswer(int which) {
+        if (wrongAnswerFlag) {
+            return;
+        }
         switch (which) {
             case 1: // A
                 rightAnswer(mBinding.textViewAnswerA.getText().toString().trim(), 1);
@@ -70,8 +75,8 @@ public class PlayActivity extends AppCompatActivity {
     private void init() {
         setLife(); // Set life
         setPoint(); // Set point
-        initTimer(); // Set time
         getAllQuestion(); // Get all question list
+        initTimer(); // Set time
         makeQuestion(); // Make new question
     }
 
@@ -121,8 +126,9 @@ public class PlayActivity extends AppCompatActivity {
             countDownTimer.cancel();
             openGameOverScreen();
         } else {
-            openCongratulationScreen();
-            makeQuestion();
+            if (!wrongAnswerFlag) {
+                makeQuestion();
+            }
         }
     }
 
@@ -143,8 +149,10 @@ public class PlayActivity extends AppCompatActivity {
      * Get all question
      */
     private void getAllQuestion() {
-        DatabaseHandler db = new DatabaseHandler(this);
-        questionList = db.getAllContacts();
+        SqlLiteDbHelper dbHelper;
+        dbHelper = new SqlLiteDbHelper(this);
+        dbHelper.openDataBase();
+        questionList = dbHelper.getAllQuestion();
         if (questionList.size() > 0) {
             Collections.shuffle(questionList);
         }
@@ -154,6 +162,9 @@ public class PlayActivity extends AppCompatActivity {
      * Make question
      */
     private void makeQuestion() {
+        if (questionList == null || questionList.size() == 0 || LIFE<=0) {
+            return;
+        }
         openCongratulationScreen();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -161,6 +172,7 @@ public class PlayActivity extends AppCompatActivity {
                 if (isDestroyed()) {
                     return;
                 }
+                wrongAnswerFlag = false;
                 countDownTimer.cancel();
                 countDownTimer.start();
                 resetAnswer();
@@ -292,7 +304,6 @@ public class PlayActivity extends AppCompatActivity {
                 makeQuestion();
             } else {
                 setWrongAnswerBackground();
-                checkGameOver();
             }
         }
     }
@@ -331,6 +342,16 @@ public class PlayActivity extends AppCompatActivity {
         mBinding.textViewAnswerB.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
         mBinding.textViewAnswerC.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
         mBinding.textViewAnswerD.setTextColor(ContextCompat.getColor(PlayActivity.this, R.color.white));
+        Utility.vibrate(PlayActivity.this);
+        wrongAnswerFlag = true;
+        countDownTimer.cancel();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkGameOver();
+                makeQuestion();
+            }
+        }, 1000);
     }
 
     /**
@@ -425,15 +446,21 @@ public class PlayActivity extends AppCompatActivity {
                     mBinding.imageViewIcon.setImageResource(R.drawable.aaidu_icon);
                     break;
                 case "abbott_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.abbott_icon);
+                    break;
+                case "adidas_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.adidas_icon);
                     break;
                 case "abn_amro_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.adobe_icon);
                     break;
                 case "accenture_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.accenture_icon);
+                    break;
+                case "airbnb_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.airbnb_icon);
                     break;
-                case "adidas_icon":
+                case "american_airlines_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.american_airlines_icon);
                     break;
                 case "adobe_icon":
@@ -448,7 +475,7 @@ public class PlayActivity extends AppCompatActivity {
                 case "aia_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.daikin_icon);
                     break;
-                case "airbnb_icon":
+                case "dove_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.dove_icon);
                     break;
                 case "airtel_icon":
@@ -465,9 +492,6 @@ public class PlayActivity extends AppCompatActivity {
                     break;
                 case "allstate_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.allstate_icon);
-                    break;
-                case "american_airlines_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.american_airlines_icon);
                     break;
                 case "anz_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.anz_icon);
@@ -503,7 +527,7 @@ public class PlayActivity extends AppCompatActivity {
                     mBinding.imageViewIcon.setImageResource(R.drawable.bank_of_china_icon);
                     break;
                 case "bank_of_communications_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.bank_of_Communications_icon);
+                    mBinding.imageViewIcon.setImageResource(R.drawable.bank_of_communications_icon);
                     break;
                 case "bank_of_montreal_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.bank_of_montreal_icon);
@@ -640,9 +664,6 @@ public class PlayActivity extends AppCompatActivity {
                 case "dominos_pizza_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.dominos_pizza_icon);
                     break;
-                case "dove_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.dove_icon);
-                    break;
                 case "dropbox_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.dropbox_icon);
                     break;
@@ -746,6 +767,9 @@ public class PlayActivity extends AppCompatActivity {
                     mBinding.imageViewIcon.setImageResource(R.drawable.innogy_icon);
                     break;
                 case "instagram_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.instagram_icon);
+                    break;
+                case "intel_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.intel_icon);
                     break;
                 case "itau_icon":
@@ -795,6 +819,336 @@ public class PlayActivity extends AppCompatActivity {
                     break;
                 case "mccain_foods_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.mccain_foods_icon);
+                    break;
+                case "mcdonalds_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mcdonalds_icon);
+                    break;
+                case "mclane_company_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mclane_company_icon);
+                    break;
+                case "mercedes_benz_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mercedes_benz_icon);
+                    break;
+                case "metlife_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.metlife_icon);
+                    break;
+                case "micromax_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.micromax_icon);
+                    break;
+                case "microsoft_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.microsoft_icon);
+                    break;
+                case "mitsubishi_conglomerate_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mitsubishi_conglomerate_icon);
+                    break;
+                case "mitsui_group_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mitsui_group_icon);
+                    break;
+                case "moutai_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.moutai_icon);
+                    break;
+                case "movistar_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.movistar_icon);
+                    break;
+                case "natwest_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.natwest_icon);
+                    break;
+                case "three_mobile_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.three_mobile_icon);
+                    break;
+                case "apple_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.apple_icon);
+                    break;
+                case "nbc_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.nbc_icon);
+                    break;
+                case "nestle_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.nestle_icon);
+                    break;
+                case "nike_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.nike_icon);
+                    break;
+                case "nissan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.nissan_icon);
+                    break;
+                case "nivea_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.nivea_icon);
+                    break;
+                case "ntt_group_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ntt_group_icon);
+                    break;
+                case "nvidia_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.nvidia_icon);
+                    break;
+                case "o_two_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.o_two_icon);
+                    break;
+                case "ocbc_bank_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ocbc_bank_icon);
+                    break;
+                case "pampers_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.pampers_icon);
+                    break;
+                case "paypal_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.paypal_icon);
+                    break;
+                case "pepsi_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.pepsi_icon);
+                    break;
+                case "petronas_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.petronas_icon);
+                    break;
+                case "pfizer_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.pfizer_icon);
+                    break;
+                case "playstation_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.playstation_icon);
+                    break;
+                case "pnc_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.pnc_icon);
+                    break;
+                case "polo_ralph_lauren_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.polo_ralph_lauren_icon);
+                    break;
+                case "porsche_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.porsche_icon);
+                    break;
+                case "prudential_uk__icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.prudential_uk__icon);
+                    break;
+                case "prudential_us_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.prudential_us_icon);
+                    break;
+                case "ptt_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ptt_icon);
+                    break;
+                case "purina_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.purina_icon);
+                    break;
+                case "pwc_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.pwc_icon);
+                    break;
+                case "qnb_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.qnb_icon);
+                    break;
+                case "rabobank_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rabobank_icon);
+                    break;
+                case "randstad_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.randstad_icon);
+                    break;
+                case "red_bull_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.red_bull_icon);
+                    break;
+                case "reliance_industries_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.reliance_industries_icon);
+                    break;
+                case "renault_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.renault_icon);
+                    break;
+                case "repsol_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.repsol_icon);
+                    break;
+                case "roche_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.roche_icon);
+                    break;
+                case "rogers_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rogers_icon);
+                    break;
+                case "rolex_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rolex_icon);
+                    break;
+                case "royal_caribbean_cruises_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.royal_caribbean_cruises_icon);
+                    break;
+                case "saint_gobain_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.saint_gobain_icon);
+                    break;
+                case "salesforce_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.salesforce_icon);
+                    break;
+                case "sams_club_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sams_club_icon);
+                    break;
+                case "sap_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sap_icon);
+                    break;
+                case "scotiabank_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.scotiabank_icon);
+                    break;
+                case "shell_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.shell_icon);
+                    break;
+                case "sherwin_williams_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sherwin_williams_icon);
+                    break;
+                case "sk_group_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sk_group_icon);
+                    break;
+                case "snapchat_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.snapchat_icon);
+                    break;
+                case "societe_generale_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.societe_generale_icon);
+                    break;
+                case "sodexo_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sodexo_icon);
+                    break;
+                case "softbank_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.softbank_icon);
+                    break;
+                case "sprint_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sprint_icon);
+                    break;
+                case "sprite_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sprite_icon);
+                    break;
+                case "standard_chartered_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.standard_chartered_icon);
+                    break;
+                case "starbucks_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.starbucks_icon);
+                    break;
+                case "state_bank_of_india_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.state_bank_of_india_icon);
+                    break;
+                case "state_grid_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.state_grid_icon);
+                    break;
+                case "statoil_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.statoil_icon);
+                    break;
+                case "subway_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.subway_icon);
+                    break;
+                case "suzuki_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.suzuki_icon);
+                    break;
+                case "swisscom_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.swisscom_icon);
+                    break;
+                case "t_deutsche_telekom_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.t_deutsche_telekom_icon);
+                    break;
+                case "target_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.target_icon);
+                    break;
+                case "tata_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tata_icon);
+                    break;
+                case "telenor_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.telenor_icon);
+                    break;
+                case "telstra_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.telstra_icon);
+                    break;
+                case "telus_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.telus_icon);
+                    break;
+                case "tesco_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tesco_icon);
+                    break;
+                case "tesla_motors_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tesla_motors_icon);
+                    break;
+                case "texas_instruments_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.texas_instruments_icon);
+                    break;
+                case "tim_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tim_icon);
+                    break;
+                case "total_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.total_icon);
+                    break;
+                case "toyota_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.toyota_icon);
+                    break;
+                case "travelers_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.travelers_icon);
+                    break;
+                case "tumblr_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tumblr_icon);
+                    break;
+                case "twitter_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.twitter_icon);
+                    break;
+                case "tyson_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tyson_icon);
+                    break;
+                case "ubs_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ubs_icon);
+                    break;
+                case "under_armour_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.under_armour_icon);
+                    break;
+                case "union_pacific_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.union_pacific_icon);
+                    break;
+                case "universal_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.universal_icon);
+                    break;
+                case "universal_two_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.universal_two_icon);
+                    break;
+                case "uob_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.uob_icon);
+                    break;
+                case "ups_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ups_icon);
+                    break;
+                case "uq_communications_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.uq_communications_icon);
+                    break;
+                case "us_bank_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.us_bank_icon);
+                    break;
+                case "valero_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.valero_icon);
+                    break;
+                case "vimeo_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.vimeo_icon);
+                    break;
+                case "vinci_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.vinci_icon);
+                    break;
+                case "vodafone_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.vodafone_icon);
+                    break;
+                case "volkswagen_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.volkswagen_icon);
+                    break;
+                case "walmart_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.walmart_icon);
+                    break;
+                case "warner_bros_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.warner_bros_icon);
+                    break;
+                case "wechat_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.wechat_icon);
+                    break;
+                case "western_digital_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.western_digital_icon);
+                    break;
+                case "westpac_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.westpac_icon);
+                    break;
+                case "whatsapp_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.whatsapp_icon);
+                    break;
+                case "winston_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.winston_icon);
+                    break;
+                case "xiaomi_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.xiaomi_icon);
+                    break;
+                case "yahoo_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.yahoo_icon);
+                    break;
+                case "zalando_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.zalando_icon);
+                    break;
+                case "zurich_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.zurich_icon);
                     break;
             }
         }

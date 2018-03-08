@@ -1,25 +1,25 @@
 package com.sriharilabs.harisharan.quiz.activity;
 
-import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.sriharilabs.harisharan.quiz.R;
-import com.sriharilabs.harisharan.quiz.database.DatabaseHandler;
 import com.sriharilabs.harisharan.quiz.database.QuestionBean;
+import com.sriharilabs.harisharan.quiz.database.SqlLiteDbHelper;
 import com.sriharilabs.harisharan.quiz.databinding.ActivityHomeBinding;
-import com.sriharilabs.harisharan.quiz.utill.Constant;
 import com.sriharilabs.harisharan.quiz.utill.PreferenceConnector;
-import com.sriharilabs.harisharan.quiz.utill.Utility;
 
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 import static com.sriharilabs.harisharan.quiz.utill.PreferenceConnector.readString;
 
@@ -87,47 +87,12 @@ public class HomeActivity extends AppCompatActivity {
      * Initialize database
      */
     private void initDatabase() {
-        DatabaseHandler db = new DatabaseHandler(this);
-        db.addContact(new QuestionBean(1, "Abbott Labs",
-                "abbott_labs_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(2, "Adidas",
-                "adidas_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(3, "Adobe",
-                "adobe_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(4, "Airbnb",
-                "airbnb_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(5, "American Airlines",
-                "american_airlines_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(6, "Applied Materials",
-                "applied_materials_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(7, "Banco do Brasil",
-                "banco_do_brasil_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(8, "Credit Agricole",
-                "credit_agricole_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(9, "Daikin",
-                "daikin_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(10, "Dove",
-                "dove_icon", Constant.TYPE_LOGO));
-        db.addContact(new QuestionBean(11, "Amitabh",
-                "amit_ji_icon", Constant.TYPE_MALE));
-        db.addContact(new QuestionBean(12, "Shardha",
-                "shardha_icon", Constant.TYPE_FEMALE));
-        db.addContact(new QuestionBean(13, "Akshay Kumar",
-                "akki_icon", Constant.TYPE_MALE));
-        db.addContact(new QuestionBean(14, "Disha Patani",
-                "disha_icon", Constant.TYPE_FEMALE));
-        db.addContact(new QuestionBean(15, "Tom Cruise",
-                "tom_cruise_icon", Constant.TYPE_MALE));
-        db.addContact(new QuestionBean(16, "Johnny Depp",
-                "johnny_depp_icon", Constant.TYPE_MALE));
-        db.addContact(new QuestionBean(17, "Kristen Stewart",
-                "kristen_stewart_icon", Constant.TYPE_FEMALE));
-        db.addContact(new QuestionBean(18, "Angelina Jolie",
-                "angelina_jolie_icon", Constant.TYPE_FEMALE));
-        /*List<QuestionBean> questionList = db.getAllContacts();
-        if (questionList.size()>0){
-            Utility.showToast(HomeActivity.this,"Question added");
-        }*/
-        PreferenceConnector.writeString(HomeActivity.this, PreferenceConnector.IS_DB, "true");
+        SqlLiteDbHelper dbHelper;
+        dbHelper = new SqlLiteDbHelper(this);
+        dbHelper.openDataBase();
+        ArrayList<QuestionBean> questionList = dbHelper.getAllQuestion();
+        if (questionList.size() > 0) {
+            PreferenceConnector.writeString(HomeActivity.this, PreferenceConnector.IS_DB, "true");
+        }
     }
 }
