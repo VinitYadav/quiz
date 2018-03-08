@@ -32,6 +32,7 @@ public class PlayActivity extends AppCompatActivity {
     private String RIGHT_ANSWER = "";
     private final int TOTAL_QUESTION = 236;
     private boolean wrongAnswerFlag;
+    private ArrayList<QuestionBean> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +156,7 @@ public class PlayActivity extends AppCompatActivity {
         questionList = dbHelper.getAllQuestion();
         if (questionList.size() > 0) {
             Collections.shuffle(questionList);
+            tempList = new ArrayList<>(questionList);
         }
     }
 
@@ -162,7 +164,7 @@ public class PlayActivity extends AppCompatActivity {
      * Make question
      */
     private void makeQuestion() {
-        if (questionList == null || questionList.size() == 0 || LIFE<=0) {
+        if (questionList == null || questionList.size() == 0 || LIFE <= 0) {
             return;
         }
         openCongratulationScreen();
@@ -245,14 +247,15 @@ public class PlayActivity extends AppCompatActivity {
      * Get other answer
      */
     private ArrayList<String> getOtherAnswer() {
-        String answer = questionList.get(questionNumber).getAnswer();
-        String selectType = questionList.get(questionNumber).getType();
+        Collections.shuffle(tempList);
+        String answer = tempList.get(questionNumber).getAnswer();
+        String selectType = tempList.get(questionNumber).getType();
         ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < questionList.size(); i++) {
-            String type = questionList.get(i).getType();
+        for (int i = 0; i < tempList.size(); i++) {
+            String type = tempList.get(i).getType();
             if (type.equalsIgnoreCase(selectType) &&
-                    !answer.equalsIgnoreCase(questionList.get(i).getAnswer())) {
-                list.add(questionList.get(i).getAnswer());
+                    !answer.equalsIgnoreCase(tempList.get(i).getAnswer())) {
+                list.add(tempList.get(i).getAnswer());
                 if (list.size() >= 3) {
                     break;
                 }
@@ -452,7 +455,7 @@ public class PlayActivity extends AppCompatActivity {
                     mBinding.imageViewIcon.setImageResource(R.drawable.adidas_icon);
                     break;
                 case "abn_amro_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.adobe_icon);
+                    mBinding.imageViewIcon.setImageResource(R.drawable.abn_amro_icon);
                     break;
                 case "accenture_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.accenture_icon);
@@ -467,13 +470,13 @@ public class PlayActivity extends AppCompatActivity {
                     mBinding.imageViewIcon.setImageResource(R.drawable.applied_materials_icon);
                     break;
                 case "adp_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.banco_do_brasil_icon);
+                    mBinding.imageViewIcon.setImageResource(R.drawable.adp_icon);
                     break;
-                case "agricultural-bank_of_china_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.credit_agricole_icon);
+                case "agricultural_bank_of_china_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.agricultural_bank_of_china_icon);
                     break;
                 case "aia_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.daikin_icon);
+                    mBinding.imageViewIcon.setImageResource(R.drawable.aia_icon);
                     break;
                 case "dove_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.dove_icon);
@@ -746,6 +749,9 @@ public class PlayActivity extends AppCompatActivity {
                     mBinding.imageViewIcon.setImageResource(R.drawable.huggies_icon);
                     break;
                 case "hyundai_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.hyundai_icon);
+                    break;
+                case "iberdrola_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.iberdrola_icon);
                     break;
                 case "icbc_icon":
@@ -913,8 +919,8 @@ public class PlayActivity extends AppCompatActivity {
                 case "porsche_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.porsche_icon);
                     break;
-                case "prudential_uk__icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.prudential_uk__icon);
+                case "prudential_uk_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.prudential_uk_icon);
                     break;
                 case "prudential_us_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.prudential_us_icon);
