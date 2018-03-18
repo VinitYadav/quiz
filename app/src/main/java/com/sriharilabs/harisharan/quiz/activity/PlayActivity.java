@@ -1177,8 +1177,8 @@ public class PlayActivity extends AppCompatActivity {
                 case "deepika_padukone_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.deepika_padukone_icon);
                     break;
-                case "dolly parton_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.dolly parton_icon);
+                case "dolly_parton_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.dolly_parton_icon);
                     break;
                 case "ellen_degeneres_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.ellen_degeneres_icon);
