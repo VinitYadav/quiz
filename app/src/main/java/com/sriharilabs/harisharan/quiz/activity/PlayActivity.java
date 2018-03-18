@@ -1156,6 +1156,348 @@ public class PlayActivity extends AppCompatActivity {
                 case "zurich_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.zurich_icon);
                     break;
+                case "adele_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.adele_icon);
+                    break;
+                case "amy_schumer_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.amy_schumer_icon);
+                    break;
+                case "anushka_sharma_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.anushka_sharma_icon);
+                    break;
+                case "beyonce_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.beyonce_icon);
+                    break;
+                case "britney_spears_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.britney_spears_icon);
+                    break;
+                case "celine_dion_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.celine_dion_icon);
+                    break;
+                case "deepika_padukone_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.deepika_padukone_icon);
+                    break;
+                case "dolly parton_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.dolly parton_icon);
+                    break;
+                case "ellen_degeneres_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ellen_degeneres_icon);
+                    break;
+                case "guns_n_roses_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.guns_n_roses_icon);
+                    break;
+                case "j_k_rowling_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.j_k_rowling_icon);
+                    break;
+                case "jennifer_lopez_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.jennifer_lopez_icon);
+                    break;
+                case "judy_sheindlin_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.judy_sheindlin_icon);
+                    break;
+                case "katy_perry_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.katy_perry_icon);
+                    break;
+                case "kim_kardashian_west_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kim_kardashian_west_icon);
+                    break;
+                case "kylie_jenner_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kylie_jenner_icon);
+                    break;
+                case "p_v_sindhu_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.p_v_sindhu_icon);
+                    break;
+                case "priyanka_chopra_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.priyanka_chopra_icon);
+                    break;
+                case "rihanna_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rihanna_icon);
+                    break;
+                case "sofia_vergara_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sofia_vergara_icon);
+                    break;
+                case "taylor_swift_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.taylor_swift_icon);
+                    break;
+                case "a_r_rahman_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.a_r_rahman_icon);
+                    break;
+                case "aamir_khan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.aamir_khan_icon);
+                    break;
+                case "adam_sandle_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.adam_sandle_icon);
+                    break;
+                case "ajay_devgn_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ajay_devgn_icon);
+                    break;
+                case "akshay_kumar_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.akshay_kumar_icon);
+                    break;
+                case "andrew_luck_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.andrew_luck_icon);
+                    break;
+                case "bill_oreilly_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.bill_oreilly_icon);
+                    break;
+                case "billy_joel_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.billy_joel_icon);
+                    break;
+                case "bon_jovi_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.bon_jovi_icon);
+                    break;
+                case "bruce_springsteen_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.bruce_springsteen_icon);
+                    break;
+                case "bruno_mars_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.bruno_mars_icon);
+                    break;
+                case "calvin_harris_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.calvin_harris_icon);
+                    break;
+                case "chance_the_rapper_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.chance_the_rapper_icon);
+                    break;
+                case "chris_rock_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.chris_rock_icon);
+                    break;
+                case "clayton_kershaw_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.clayton_kershaw_icon);
+                    break;
+                case "coldplay_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.coldplay_icon);
+                    break;
+                case "conor_mcregor_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.conor_mcregor_icon);
+                    break;
+                case "cristiano_ronaldo_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.cristiano_ronaldo_icon);
+                    break;
+                case "damian_lillard_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.damian_lillard_icon);
+                    break;
+                case "dave_chappelle_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.dave_chappelle_icon);
+                    break;
+                case "david_copperfield_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.david_copperfield_icon);
+                    break;
+                case "derrick_rose_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.derrick_rose_icon);
+                    break;
+                case "dr_dre_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.dr_dre_icon);
+                    break;
+                case "drake_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.drake_icon);
+                    break;
+                case "drew_brees_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.drew_brees_icon);
+                    break;
+                case "dwayne_johnson_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.dwayne_johnson_icon);
+                    break;
+                case "dwayne_wade_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.dwayne_wade_icon);
+                    break;
+                case "ed_sheeran_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ed_sheeran_icon);
+                    break;
+                case "elton_john_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.elton_john_icon);
+                    break;
+                case "fernando_alonso_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.fernando_alonso_icon);
+                    break;
+                case "fletcher_cox_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.fletcher_cox_icon);
+                    break;
+                case "florida_georgia_line_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.florida_georgia_line_icon);
+                    break;
+                case "gareth_bale_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.gareth_bale_icon);
+                    break;
+                case "garth_brooks_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.garth_brooks_icon);
+                    break;
+                case "gordon_ramsay_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.gordon_ramsay_icon);
+                    break;
+                case "howard_stern_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.howard_stern_icon);
+                    break;
+                case "hrithik_roshan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.hrithik_roshan_icon);
+                    break;
+                case "irrfan_khan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.irrfan_khan_icon);
+                    break;
+                case "jackie_chan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.jackie_chan_icon);
+                    break;
+                case "james_harden_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.james_harden_icon);
+                    break;
+                case "james_patterson_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.james_patterson_icon);
+                    break;
+                case "jay_z_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.jay_z_icon);
+                    break;
+                case "jerry_einfeld_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.jerry_einfeld_icon);
+                    break;
+                case "jimmy_buffett_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.jimmy_buffett_icon);
+                    break;
+                case "jordan_pieth_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.jordan_pieth_icon);
+                    break;
+                case "justin_bieber_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.justin_bieber_icon);
+                    break;
+                case "karan_johar_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.karan_johar_icon);
+                    break;
+                case "kei_nishikori_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kei_nishikori_icon);
+                    break;
+                case "kenny_chesney_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kenny_chesney_icon);
+                    break;
+                case "kevin_durant_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kevin_durant_icon);
+                    break;
+                case "kevin_hary_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.kevin_hary_icon);
+                    break;
+                case "lebron_james_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.lebron_james_icon);
+                    break;
+                case "lewis_hamilton_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.lewis_hamilton_icon);
+                    break;
+                case "lionel_messi_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.lionel_messi_icon);
+                    break;
+                case "louis_c_k_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.louis_c_k_icon);
+                    break;
+                case "luke_bryan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.luke_bryan_icon);
+                    break;
+                case "mahesh_babu_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mahesh_babu_icon);
+                    break;
+                case "mark_wahlberg_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.mark_wahlberg_icon);
+                    break;
+                case "metallica_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.metallica_icon);
+                    break;
+                case "ms_dhoni_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ms_dhoni_icon);
+                    break;
+                case "neymar_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.neymar_icon);
+                    break;
+                case "novak_djokovic_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.novak_djokovic_icon);
+                    break;
+                case "paul_mccartney_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.paul_mccartney_icon);
+                    break;
+                case "phil_mcgraw_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.phil_mcgraw_icon);
+                    break;
+                case "phil_mickelson_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.phil_mickelson_icon);
+                    break;
+                case "prabhas_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.prabhas_icon);
+                    break;
+                case "ravichandran_ashwin_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ravichandran_ashwin_icon);
+                    break;
+                case "ravindra_jadeja_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ravindra_jadeja_icon);
+                    break;
+                case "red_hot_chili_peppers_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.red_hot_chili_peppers_icon);
+                    break;
+                case "robert_downey_jr_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.robert_downey_jr_icon);
+                    break;
+                case "roger_federer_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.roger_federer_icon);
+                    break;
+                case "rory_mcIlroy_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rory_mcIlroy_icon);
+                    break;
+                case "rush_limbaugh_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rush_limbaugh_icon);
+                    break;
+                case "russell_westbrook_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.russell_westbrook_icon);
+                    break;
+                case "ryan_seacrest_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.ryan_seacrest_icon);
+                    break;
+                case "s_s_rajamouli_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.s_s_rajamouli_icon);
+                    break;
+                case "sachin_tendulkar_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sachin_tendulkar_icon);
+                    break;
+                case "salman_khan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.salman_khan_icon);
+                    break;
+                case "sean_hannity_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sean_hannity_icon);
+                    break;
+                case "sebastian_vettel_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.sebastian_vettel_icon);
+                    break;
+                case "shah_rukh_khan_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.shah_rukh_khan_icon);
+                    break;
+                case "simon_cowell_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.simon_cowell_icon);
+                    break;
+                case "steve_harvey_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.steve_harvey_icon);
+                    break;
+                case "the_chainsmokers_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.the_chainsmokers_icon);
+                    break;
+                case "the_weeknd_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.the_weeknd_icon);
+                    break;
+                case "tiesto_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tiesto_icon);
+                    break;
+                case "tiger_woods_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tiger_woods_icon);
+                    break;
+                case "toby_keith_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.toby_keith_icon);
+                    break;
+                case "tom_cruise_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.tom_cruise_icon);
+                    break;
+                case "usain_bolt_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.usain_bolt_icon);
+                    break;
+                case "vin_diesel_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.vin_diesel_icon);
+                    break;
+                case "virat_kohli_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.virat_kohli_icon);
+                    break;
+                case "zlatan_Ibrahimovic_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.zlatan_Ibrahimovic_icon);
+                    break;
             }
         }
     }
