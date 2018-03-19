@@ -9,6 +9,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.sriharilabs.harisharan.quiz.R;
 import com.sriharilabs.harisharan.quiz.database.QuestionBean;
 import com.sriharilabs.harisharan.quiz.database.SqlLiteDbHelper;
@@ -79,6 +83,20 @@ public class PlayActivity extends AppCompatActivity {
         getAllQuestion(); // Get all question list
         initTimer(); // Set time
         makeQuestion(); // Make new question
+        initializeBottomAd(); // Initialize bottom ad
+    }
+
+    /**
+     * Initialize bottom ad
+     */
+    private void initializeBottomAd() {
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mBinding.adView.loadAd(adRequest);
     }
 
     /**
