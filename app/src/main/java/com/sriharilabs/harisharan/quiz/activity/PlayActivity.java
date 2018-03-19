@@ -37,6 +37,7 @@ public class PlayActivity extends AppCompatActivity {
     private final int TOTAL_QUESTION = 236;
     private boolean wrongAnswerFlag;
     private ArrayList<QuestionBean> tempList;
+    private int questionCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void bottomAd() {
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this,getString(R.string.ad_unit));
+        MobileAds.initialize(this, getString(R.string.ad_unit));
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId(getString(R.string.ad_unit_id_bottom));
@@ -215,6 +216,7 @@ public class PlayActivity extends AppCompatActivity {
                 if (questionNumber <= (questionList.size() - 1)) {
                     questionNumber++;
                 }
+                questionCount++;
             }
         }, 500);
     }
