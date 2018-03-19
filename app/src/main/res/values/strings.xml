@@ -8,4 +8,9 @@
     <string name="logo_actor">GUESS THE ACTOR?</string>
     <string name="logo_actress">GUESS THE ACTRESS?</string>
     <string name="congratulation">CONGRATULATION</string>
+
+    <string name="ad_unit">ca-app-pub-5957117184239951~8756468711</string>
+    <string name="ad_unit_id_bottom">ca-app-pub-5957117184239951/1153310868</string>
+    <string name="interstitial_unit_id_bottom">ca-app-pub-5957117184239951/1532159782</string>
+
 </resources>

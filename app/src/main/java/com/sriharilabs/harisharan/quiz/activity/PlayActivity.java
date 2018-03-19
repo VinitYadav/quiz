@@ -91,10 +91,10 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void initializeBottomAd() {
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this,getString(R.string.ad_unit));
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        adView.setAdUnitId(getString(R.string.ad_unit_id_bottom));
         AdRequest adRequest = new AdRequest.Builder().build();
         mBinding.adView.loadAd(adRequest);
     }
