@@ -83,13 +83,13 @@ public class PlayActivity extends AppCompatActivity {
         getAllQuestion(); // Get all question list
         initTimer(); // Set time
         makeQuestion(); // Make new question
-        initializeBottomAd(); // Initialize bottom ad
+        bottomAd(); // Initialize bottom ad
     }
 
     /**
      * Initialize bottom ad
      */
-    private void initializeBottomAd() {
+    private void bottomAd() {
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this,getString(R.string.ad_unit));
         AdView adView = new AdView(this);
