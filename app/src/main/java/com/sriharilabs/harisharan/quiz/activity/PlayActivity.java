@@ -1432,8 +1432,8 @@ public class PlayActivity extends AppCompatActivity {
                 case "roger_federer_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.roger_federer_icon);
                     break;
-                case "rory_mcIlroy_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.rory_mcIlroy_icon);
+                case "rory_mcilroy_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.rory_mcilroy_icon);
                     break;
                 case "rush_limbaugh_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.rush_limbaugh_icon);
@@ -1495,8 +1495,8 @@ public class PlayActivity extends AppCompatActivity {
                 case "virat_kohli_icon":
                     mBinding.imageViewIcon.setImageResource(R.drawable.virat_kohli_icon);
                     break;
-                case "zlatan_Ibrahimovic_icon":
-                    mBinding.imageViewIcon.setImageResource(R.drawable.zlatan_Ibrahimovic_icon);
+                case "zlatan_ibrahimovic_icon":
+                    mBinding.imageViewIcon.setImageResource(R.drawable.zlatan_ibrahimovic_icon);
                     break;
             }
         }
