@@ -8,10 +8,13 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.sriharilabs.harisharan.quiz.R;
 import com.sriharilabs.harisharan.quiz.database.QuestionBean;
@@ -23,6 +26,8 @@ import com.sriharilabs.harisharan.quiz.utill.Utility;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static com.sriharilabs.harisharan.quiz.R.id.adView;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -38,6 +43,7 @@ public class PlayActivity extends AppCompatActivity {
     private boolean wrongAnswerFlag;
     private ArrayList<QuestionBean> tempList;
     private int questionCount = 0;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +57,10 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        countDownTimer.cancel();
-        countDownTimer = null;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
     }
 
     /**
@@ -84,7 +92,12 @@ public class PlayActivity extends AppCompatActivity {
         getAllQuestion(); // Get all question list
         initTimer(); // Set time
         makeQuestion(); // Make new question
-        bottomAd(); // Initialize bottom ad
+        if (Utility.isNetworkConnected(PlayActivity.this)) {
+            bottomAd(); // Initialize bottom ad
+            interstitialAd(); // initialize interstitial ad
+        } else {
+            mBinding.adView.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -98,6 +111,55 @@ public class PlayActivity extends AppCompatActivity {
         adView.setAdUnitId(getString(R.string.ad_unit_id_bottom));
         AdRequest adRequest = new AdRequest.Builder().build();
         mBinding.adView.loadAd(adRequest);
+    }
+
+    /**
+     * Initialize interstitial ad
+     */
+    private void interstitialAd() {
+        //MobileAds.initialize(this, getString(R.string.ad_unit));
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_unit_id_bottom));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                makeQuestion();
+            }
+        });
+    }
+
+    /**
+     * Open interstitial ad
+     */
+    private void openInterstitialAd() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Utility.showToast(PlayActivity.this, "The interstitial wasn't loaded yet.");
+        }
     }
 
     /**
@@ -157,6 +219,9 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void openGameOverScreen() {
         if (!isDestroyed()) {
+            if (mInterstitialAd != null) {
+                mInterstitialAd.getAdListener().onAdClosed();
+            }
             saveHighScore();
             Intent intent = new Intent(PlayActivity.this, GameOverActivity.class);
             intent.putExtra("point", POINT + "");
@@ -183,6 +248,11 @@ public class PlayActivity extends AppCompatActivity {
      * Make question
      */
     private void makeQuestion() {
+        if (questionCount >= 10) {
+            questionCount = 0;
+            openInterstitialAd();
+            return;
+        }
         if (questionList == null || questionList.size() == 0 || LIFE <= 0) {
             return;
         }
