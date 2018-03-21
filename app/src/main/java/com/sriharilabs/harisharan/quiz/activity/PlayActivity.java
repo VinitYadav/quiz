@@ -63,6 +63,14 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001) {
+            countDownTimer.start();
+        }
+    }
+
     /**
      * Click on answer
      */
@@ -166,7 +174,7 @@ public class PlayActivity extends AppCompatActivity {
      * Initialize time
      */
     private void initTimer() {
-        countDownTimer = new CountDownTimer(10000, 1000) {
+        countDownTimer = new CountDownTimer(20000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 mBinding.textViewTime.setText("Time: " + millisUntilFinished / 1000);
@@ -502,13 +510,21 @@ public class PlayActivity extends AppCompatActivity {
      */
     private void openCongratulationScreen() {
         if (!isDestroyed()) {
-            //int size = questionList.size();
-            if (questionNumber >= TOTAL_QUESTION) {
-                saveHighScore();
-                Intent intent = new Intent(PlayActivity.this, CongratulationActivity.class);
-                intent.putExtra("point", POINT + "");
-                startActivity(intent);
-                finish();
+            String saveScore = PreferenceConnector.readString(PlayActivity.this,
+                    PreferenceConnector.HIGH_SCORE, "");
+            String isCongratulation = PreferenceConnector.readString(PlayActivity.this,
+                    PreferenceConnector.IS_CONGRATULATION, "");
+            if (!TextUtils.isEmpty(saveScore) && TextUtils.isEmpty(isCongratulation)) {
+                int tempScore = Integer.parseInt(saveScore);
+                if (POINT > tempScore) {
+                    PreferenceConnector.writeString(PlayActivity.this,
+                            PreferenceConnector.IS_CONGRATULATION, "true");
+                    countDownTimer.cancel();
+                    saveHighScore();
+                    Intent intent = new Intent(PlayActivity.this, CongratulationActivity.class);
+                    intent.putExtra("point", POINT + "");
+                    startActivityForResult(intent, 1001);
+                }
             }
         }
     }

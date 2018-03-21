@@ -39,6 +39,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setScore();
+        PreferenceConnector.writeString(HomeActivity.this,
+                PreferenceConnector.IS_CONGRATULATION, "");
     }
 
     /**
@@ -51,7 +53,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void init() {
-        String isDb = PreferenceConnector.readString(HomeActivity.this, PreferenceConnector.IS_DB, "");
+        String isDb = PreferenceConnector.readString(HomeActivity.this,
+                PreferenceConnector.IS_DB, "");
         if (TextUtils.isEmpty(isDb)) {
             initDatabase();
         }
