@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -106,6 +107,22 @@ public class PlayActivity extends AppCompatActivity {
         } else {
             mBinding.adView.setVisibility(View.GONE);
         }
+        /*Glide.with(this).asGif().
+                load(ContextCompat.getDrawable(PlayActivity.this,
+                        R.drawable.question_bg))
+                .into(mBinding.imageViewIconBg);*/
+        Glide.with(this).
+                load(getImage("question_bg"))
+                .into(mBinding.imageViewIconBg);
+
+
+    }
+
+    public int getImage(String imageName) {
+
+        int drawableResourceId = this.getResources().getIdentifier(imageName, "drawable", this.getPackageName());
+
+        return drawableResourceId;
     }
 
     /**
