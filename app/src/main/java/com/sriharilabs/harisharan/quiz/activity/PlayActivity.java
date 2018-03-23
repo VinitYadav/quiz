@@ -114,8 +114,6 @@ public class PlayActivity extends AppCompatActivity {
         Glide.with(this).
                 load(getImage("question_bg"))
                 .into(mBinding.imageViewIconBg);
-
-
     }
 
     public int getImage(String imageName) {
